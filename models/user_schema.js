@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
 
 // Defining what our data is made up of, like a database schema
 const userSchema = new Schema(
@@ -25,6 +26,13 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
+
+userSchema.methods.comparePassword = function (password) {
+  // 'this' refers to the current user object
+  return bcrypt.compareSync(password, this.password, function (result) {
+    return result;
+  });
+};
 
 // Can import this model in another file, referring to it as just 'Data'
 // Can use methods on this then, like a class

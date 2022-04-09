@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "*",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "*"
   },
   "author": "Jake Black",
