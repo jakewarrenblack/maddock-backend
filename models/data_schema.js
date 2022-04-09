@@ -36,4 +36,4 @@ const collection = new Schema({
 
 // Can import this model in another file, referring to it as just 'Data'
 // Can use methods on this then, like a class
-module.exports = model("Data", collection, "collection");
+module.exports = model("Data", collection, "users");
