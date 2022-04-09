@@ -28,6 +28,20 @@ const register = (req, res) => {
   });
 };
 
+// ------------ Another middleware ------------ //
+// Login isn't always required, only on protected routes
+const loginRequired = (req, res, next) => {
+  // if user object exists, move on
+  if (req.user) {
+    next();
+  } else {
+    // no user, unauthorised
+    return res.status(401).json({
+      message: "Unauthorised user!",
+    });
+  }
+};
+
 const login = (req, res) => {
   // Connect to db, find the user matching the email provided in request body
   User.findOne({
@@ -62,4 +76,5 @@ const login = (req, res) => {
 module.exports = {
   register,
   login,
+  loginRequired,
 };
