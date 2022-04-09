@@ -25,13 +25,8 @@ const getAll = (req, res) => {
 
 const update = (req, res) => {
   // The data provided by the user's request
-  let data = req.body;
+  let data = convertToDotNotation(req.body);
 
-  console.log(data);
-
-  // let id = req.params.id;
-
-  // console.log(id);
   // id will always be the same, it's just one big JSON object, but also receive the data to update with (req.body)
   Data.findByIdAndUpdate(req.params.id, data, {
     useFindAndModify: false,
@@ -56,6 +51,17 @@ const update = (req, res) => {
     });
 };
 
+function convertToDotNotation(obj, newObj = {}, prefix = "") {
+  for (let key in obj) {
+    if (typeof obj[key] === "object") {
+      convertToDotNotation(obj[key], newObj, prefix + key + ".");
+    } else {
+      newObj[prefix + key] = obj[key];
+    }
+  }
+
+  return newObj;
+}
 module.exports = {
   getAll,
   update,

@@ -26,6 +26,12 @@ const collection = new Schema({
     type: Object,
     required: [true, "History is required"],
   },
+  test: {
+    type: String,
+  },
+  test2: {
+    type: String,
+  },
 });
 
 // Can import this model in another file, referring to it as just 'Data'
