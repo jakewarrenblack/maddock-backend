@@ -4,7 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 require("./db")();
 
-const { getAll } = require("./controllers/data_controller");
+const { getAll, update } = require("./controllers/data_controller");
 
 const port = process.env.PORT || 3000;
 
@@ -13,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api", getAll);
+
+app.put("/api/:id", update);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

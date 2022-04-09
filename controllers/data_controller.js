@@ -23,6 +23,40 @@ const getAll = (req, res) => {
     });
 };
 
+const update = (req, res) => {
+  // The data provided by the user's request
+  let data = req.body;
+
+  console.log(data);
+
+  // let id = req.params.id;
+
+  // console.log(id);
+  // id will always be the same, it's just one big JSON object, but also receive the data to update with (req.body)
+  Data.findByIdAndUpdate(req.params.id, data, {
+    useFindAndModify: false,
+    new: false,
+  })
+    .then((data) => {
+      console.log("Data updated!");
+      // 201 = success, something was modified
+      res.status(201).json(data);
+    })
+    .catch((err) => {
+      // 'ValidationError' is part of mongoose, if it tries to add some data but it doesn't follow the schema rules
+      if (err.name === "ValidationError") {
+        console.error("Error Validating!", err);
+        // if updating, you'll never get a 404 not found, so instead throw 422 unprocessable entity
+        res.status(422).json(err);
+      } else {
+        // If we don't get a validation error, throw 500 internal server error
+        console.error(err);
+        res.status(500).json(err);
+      }
+    });
+};
+
 module.exports = {
   getAll,
+  update,
 };
