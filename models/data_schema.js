@@ -2,6 +2,14 @@ const { Schema, model } = require("mongoose");
 
 // Defining what our data is made up of, like a database schema
 const collection = new Schema({
+  authorInfo: {
+    type: Object,
+    required: [true, "Author info is required"],
+  },
+  mail: {
+    type: Object,
+    required: [true, "Newsletter info is required"],
+  },
   bio: {
     type: Object,
     required: [true, "Bio is required"],
