@@ -32,6 +32,8 @@ const register = (req, res) => {
 // Login isn't always required, only on protected routes
 const loginRequired = (req, res, next) => {
   // if user object exists, move on
+
+  // req.user will have been set to undefined if no token
   if (req.user) {
     next();
   } else {
